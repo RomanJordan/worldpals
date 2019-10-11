@@ -1,0 +1,9 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h1>{{ user.username }}</h1>
+        {{ user.profile.biography }}
+        {{ user.profile.date_joined }}
+    </div>    
+{% endblock content %}

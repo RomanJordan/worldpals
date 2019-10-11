@@ -1,0 +1,47 @@
+.grid-container { 
+    display: grid;
+    grid-template-areas: 
+      "header header"
+      "article article"
+      "ads ads"
+      "footer footer";
+    grid-template-rows: 80px 1fr 70px 70px;  
+    grid-template-columns:  1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    height: 100vh;
+    margin: 0;
+    }  
+  #pageHeader {
+    grid-area: header;
+    border: 1px solid;
+    }
+  #pageFooter {
+    grid-area: footer;
+    border: 1px solid;
+    
+    }
+  #mainArticle { 
+    grid-area: article;
+    border: 1px solid;      
+    }
+  #mainNav { 
+    grid-area: nav;
+    border: 1px solid;
+    }
+  #siteAds { 
+    grid-area: ads; 
+    border: 1px solid;
+    } 
+  /* Stack the layout on small devices/viewports. */
+  @media all and (max-width: 575px) {
+    .grid-container { 
+      grid-template-areas: 
+        "header"
+        "article"
+        "ads"
+        "footer";
+      grid-template-rows: 80px 1fr 70px 70px;  
+      grid-template-columns: 1fr;
+   }
+  }
