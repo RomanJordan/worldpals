@@ -27,7 +27,7 @@ class CustomUser(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     date_joined = models.DateField(default=timezone.now)
-    image = models.ImageField(default='media/default.jpg')
+    image = models.ImageField(default='default.jpg')
     biography = models.TextField(default='Add something about yourself here!')
     
     
