@@ -20,16 +20,14 @@
       <div class="container">
           <div class="grid-container">
               <header id="pageHeader">
-                  {% if user.is_authenticated %}
-                    Hi {{ user.username }}!
-                    <a href="{% url 'logout' %}">Logout</a>
+                    {% if user.is_authenticated %}
+                      <a class="nav-item nav-link" href="user/{{ user.username }}">Hi {{ user.username }}!</a>
+                      <a href="{% url 'logout' %}">Logout</a>
                     {% else %}
-                    <a href="{% url 'login' %}">Login :D</a>
-                    <a href="{% url 'register' %}">Create an account :DDDD</a> 
-                  {% endif %}
-
-                  
-                  <a href="{% url 'index' %}">home page link :DDDDDD!</a>
+                      <a href="{% url 'login' %}">Login :D</a>
+                      <a href="{% url 'register' %}">Create an account :DDDD</a>
+                    {% endif %}
+                    <a href="{% url 'index' %}">home page link :DDDDDD!</a>
               </header>
               <article id="mainArticle">
                   <div class="main-content">
@@ -37,7 +35,9 @@
                   </div>
               </article>
               <div id="siteAds">Ads</div>
-              <footer id="pageFooter">Footer</footer>
+              <footer id="pageFooter">
+                Footer
+              </footer>
         </div>
       </div>
   </body>

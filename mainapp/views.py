@@ -25,9 +25,3 @@ class ProfileView(DetailView):
     def get_queryset(self):
         return Profile.objects.filter(user__username=self.kwargs['username']) 
 
-# class ProfileView(DetailView):
-#     template_name = 'mainapp/profile.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(ProfileView, self).get_context_data(**kwargs)
-#         context

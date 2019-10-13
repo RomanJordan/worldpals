@@ -11,6 +11,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    date_joined = models.DateField(default=timezone.now)
     slug = models.SlugField(max_length=50, null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -26,7 +27,6 @@ class CustomUser(AbstractUser):
     
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    date_joined = models.DateField(default=timezone.now)
     image = models.ImageField(default='default.jpg')
     biography = models.TextField(default='Add something about yourself here!')
     
