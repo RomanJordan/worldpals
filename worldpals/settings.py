@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'mainapp.apps.MainappConfig',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,4 @@ LOGOUT_REDIRECT_URL = 'index'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-AUTH_USER_MODEL = 'mainapp.CustomUser'
+AUTH_USER_MODEL = 'mainapp.User'
