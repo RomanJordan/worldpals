@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User, Profile
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 
 User = get_user_model()
 
@@ -75,7 +75,7 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('email', 'username', 'gender', 'country')
 
 
-class ProfileUpdateForm(forms.ModelForm):
+class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'biography']

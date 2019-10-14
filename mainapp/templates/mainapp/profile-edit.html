@@ -4,8 +4,10 @@
     <form method="post" action="">
         {% csrf_token %}
         <div class="form-group">
-                <input type="text" name="country" required="required" value="{{ profile.user.country }}"/>
-                <label class="control-label" for="input">Country</label><i class="mtrl-select"></i>
+            <div class="form-group half">
+                {{ form.as_table }}
+                {{ profile_form.as_table }}
+            </div>
         </div>
     </form>
 {% endblock content %}

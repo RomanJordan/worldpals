@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -7,6 +7,9 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.views.generic import ListView, DetailView, UpdateView
 from .models import User, Profile
 from django.contrib.auth.decorators import login_required
+from .forms import ProfileEditForm
+from django.contrib.messages import constants as messages
+from django.contrib import messages, auth
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -28,7 +31,7 @@ class RegisterView(CreateView):
     def post(self, request, *args, **kwargs):
         if User.objects.filter(email=request.POST['email']).exists():
             messages.warning(request, 'This email is already taken')
-            return redirect('mainapp/register.html')
+            return redirect('register')
 
         user_form = CustomUserCreationForm(data=request.POST)
 
@@ -51,11 +54,24 @@ class ProfileView(DetailView):
     def get_queryset(self):
         return Profile.objects.filter(user__username=self.kwargs['username']) 
 
+class MyProfileView(DetailView):
+    model = User
+    template_name = 'mainapp/profile.html'
+    def profile(request):
+        current_user = User.objects.filter(user__username=request.user)
+
+
 class ProfileEditView(UpdateView):
     model = Profile
     template_name = 'mainapp/profile-edit.html'
     context_object_name = 'profile'
-    fields = '__all__'
+    fields = ('image','biography',)
     
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+    def edit_profile(request):
+        if request.method == 'POST':
+            form = ProfileEditForm(request.POST, instance=request.user)
+            profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.userprofile)  # request.FILES is show the selected image or file
+

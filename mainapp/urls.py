@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='mainapp/logout.html'), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('user/<str:username>/', ProfileView.as_view(), name='profile'),
+    path('user/<str:username>/', MyProfileView.as_view(), name='my-profile'),
     path('edit-profile', ProfileEditView.as_view(), name='profile-edit'),
 ]
