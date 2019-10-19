@@ -68,14 +68,12 @@ class UserLoginForm(forms.Form):
     def get_user(self):
         return self.user
 
-
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('email', 'username', 'gender', 'country')
 
-
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'biography']
+        fields = [ 'image','biography']

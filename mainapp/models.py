@@ -16,13 +16,14 @@ class User(AbstractUser):
         ('transgender', 'Transgender'),
         ('prefer_not_to_say', 'Prefer not to say')
     ]
-
+    
     email = models.EmailField(unique=True, blank=False)
     username = models.CharField(max_length=100, unique=True, 
     help_text='Required. Username must be less than 50 characters')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateField(default=timezone.now)
+    birthdate = models.DateField(default=timezone.now)
     slug = models.SlugField(max_length=50, null=True, blank=True)
     gender = models.CharField(max_length=20,choices=GENDER_OPTIONS, blank=False, default='')
     country = CountryField(default='US')

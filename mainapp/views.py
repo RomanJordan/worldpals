@@ -29,8 +29,8 @@ class RegisterView(CreateView):
         return self.success_url
 
     def post(self, request, *args, **kwargs):
-        if User.objects.filter(email=request.POST['email']).exists():
-            messages.warning(request, 'This email is already taken')
+        if User.objects.filter(email__iexact=request.POST['email']).exists() or User.objects.filter(username__iexact=request.POST['username']).exists():
+            messages.warning(request, 'This email or username is already taken')
             return redirect('register')
 
         user_form = CustomUserCreationForm(data=request.POST)
@@ -40,10 +40,11 @@ class RegisterView(CreateView):
             password = user_form.cleaned_data.get("password1")
             user.set_password(password)
             user.save()
+            messages.success(request, 'Account created')
             return redirect('login')
         else:
             print(user_form.errors)
-            return render(request, 'register', {'form': user_form})
+            return render(request, 'mainapp/register.html', {'form': user_form})
 
 class ProfileView(DetailView):
     model = Profile
@@ -57,9 +58,10 @@ class ProfileView(DetailView):
 class MyProfileView(DetailView):
     model = User
     template_name = 'mainapp/profile.html'
-    def profile(request):
-        current_user = User.objects.filter(user__username=request.user)
 
+@login_required
+def profile(request):
+    return render(request, 'mainapp/my-profile.html')
 
 class ProfileEditView(UpdateView):
     model = Profile
