@@ -23,7 +23,9 @@ class CustomUserCreationForm(UserCreationForm):
         username = self.cleaned_data['username']
         print(username)
         if ' ' in username:
-            raise forms.ValidationError("Username can't contain spaces.")
+            raise forms.ValidationError("Username may not contain spaces.")
+        if '@' in username or '*' in username or '+' in username or '=' in username or '-' in username or '^' in username or '$' in username or '!' in username or '%' in username:
+            raise forms.ValidationError("Username may not contain special characters.")
         return username
 
     def save(self, commit=True):

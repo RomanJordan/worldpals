@@ -47,13 +47,13 @@ class RegisterView(CreateView):
             return render(request, 'mainapp/register.html', {'form': user_form})
 
 class ProfileView(DetailView):
-    model = Profile
+    model = User
     template_name = 'mainapp/profile.html'
-    slug_field = 'user__username'
+    slug_field = 'username'
     slug_url_kwarg = 'username'
 
     def get_queryset(self):
-        return Profile.objects.filter(user__username=self.kwargs['username']) 
+        return User.objects.filter(username__iexact=self.kwargs['username']) 
 
 class MyProfileView(DetailView):
     model = User

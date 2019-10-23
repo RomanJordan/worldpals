@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
     <div class="container">
-        <img src="{{ profile.user.country.flag }}" alt="{{ profile.user.country }} flag">
-        <h1>{{ profile.user.username|title }}</h1>
-        <h2>{{ profile.biography }}</h2>
-        <h3>Joined on: {{ profile.user.date_joined }}</h3>
+        <img src="{{ user.country.flag }}" alt="{{ profile.user.country }} flag">
+        <h1>{{ user.username }}</h1>
+        <h2>{{ user.profile.biography }}</h2>
+        <h3>Joined on: {{ user.date_joined }}</h3>
         <h4>{{ profile.user.country }}</h4>
         
-        <img src="{{ profile.image.url }}" alt="User avatar image">
+        <img src="{{ user.profile.image.url }}" alt="User avatar image">
     </div>    
 {% endblock content %}
