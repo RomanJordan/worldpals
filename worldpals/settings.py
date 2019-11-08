@@ -132,7 +132,7 @@ MEDIA_URL = '/media/'
 
 
 # my_project/settings.py
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'mainapp/login.html'
 LOGOUT_REDIRECT_URL = 'index'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

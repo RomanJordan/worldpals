@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProfileEditForm
 from django.contrib.messages import constants as messages
 from django.contrib import messages, auth
+from django.utils.decorators import method_decorator
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -53,11 +54,20 @@ class ProfileView(DetailView):
     slug_url_kwarg = 'username'
 
     def get_queryset(self):
-        return User.objects.filter(username__iexact=self.kwargs['username']) 
+        return User.objects.filter(User__username=self.kwargs['username']) 
 
 class MyProfileView(DetailView):
     model = User
-    template_name = 'mainapp/profile.html'
+    template_name = 'mainapp/my-profile.html'
+    # context_object_name = 'user'
+    # @method_decorator(login_required)
+    # @login_required(login_url='mainapp/login.html')
+    def get_object(self, queryset=None, *args, **kwargs):
+        context = self.request.user
+        return context
+        
+    
+   
 
 @login_required
 def profile(request):
@@ -67,7 +77,7 @@ class ProfileEditView(UpdateView):
     model = Profile
     template_name = 'mainapp/profile-edit.html'
     context_object_name = 'profile'
-    fields = ('image','biography',)
+    fields = ('background_image','about_me',)
     
     def get_object(self, queryset=None):
         return self.request.user.profile
@@ -77,3 +87,4 @@ class ProfileEditView(UpdateView):
             form = ProfileEditForm(request.POST, instance=request.user)
             profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.userprofile)  # request.FILES is show the selected image or file
 
+# def send_friend_request(request):

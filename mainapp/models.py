@@ -52,8 +52,9 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg')
-    biography = models.TextField(default='Add something about yourself here!')
+    profile_image = models.ImageField(default='default.jpg')
+    background_image = models.ImageField(default='default.jpg')
+    about_me = models.TextField(default='Add something about yourself here!')
     
     
     def __str__(self):
@@ -65,3 +66,8 @@ class Friend(models.Model):
     friends_since = models.DateField(default=timezone.now)
     status = models.CharField(max_length=20, default='requested')
 
+class Message(models.Model):
+     sender = models.ForeignKey(User, related_name='receiver', on_delete=models.CASCADE)
+     reciever = models.ForeignKey(User, related_name='receiver', on_delete=models.CASCADE)
+     message_content = models.TextField(default = 'Default')
+     date_sent = models.DateField(default=timezone.now)

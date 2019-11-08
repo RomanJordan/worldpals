@@ -24,7 +24,8 @@ class CustomUserCreationForm(UserCreationForm):
         print(username)
         if ' ' in username:
             raise forms.ValidationError("Username may not contain spaces.")
-        if '@' in username or '*' in username or '+' in username or '=' in username or '-' in username or '^' in username or '$' in username or '!' in username or '%' in username:
+        if '@' in username or '*' in username or '+' in username or '=' in username or '-' in username \
+        or '^' in username or '$' in username or '!' in username or '%' in username:
             raise forms.ValidationError("Username may not contain special characters.")
         return username
 
@@ -78,4 +79,4 @@ class CustomUserChangeForm(UserChangeForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = [ 'image','biography']
+        fields = [ 'profile_image','background_image','about_me']
